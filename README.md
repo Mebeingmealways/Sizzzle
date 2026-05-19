@@ -8,10 +8,6 @@
 
 Sizzzle is a full-stack operations platform for home-cook booking workflows with role-based access for customers, cooks, managers, and admins.
 
-## Maintainer
-
-Aaryan Choudhary
-
 ## Project Details (Jan 2026)
 
 - Milestone 1: Deadline by end of Week 3 (February 22)
