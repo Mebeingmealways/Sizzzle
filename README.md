@@ -8,11 +8,9 @@
 
 Sizzzle is a full-stack operations platform for home-cook booking workflows with role-based access for customers, cooks, managers, and admins.
 
-## Team Members (Team 106)
+## Maintainer
 
-| Initial | Name | Email | Phone | GitHub | Discourse | Preferred Roles |
-|---|---|---|---|---|---|---|
-| A | Aaryan Choudhary | 23f2003700@ds.study.iitm.ac.in | 9929586989 | @23f2003700 | 23f2003700 | 1) Frontend and Deployment, 2) Code Reviewer |
+Aaryan Choudhary
 
 ## Project Details (Jan 2026)
 
@@ -110,7 +108,7 @@ Local URLs:
 
 - Web App: https://sizzzle.me
 - API Root: https://api.sizzzle.me/
-- API Docs (Swagger UI): https://api.sizzzle.me/api/docs
+- API Docs (Swagger UI): https://api.sizzzle.me/docs
 - OpenAPI JSON: https://api.sizzzle.me/api/openapi.json
 - API Health: https://api.sizzzle.me/api/health
 - Project Docs Page: https://api.sizzzle.me/project-docs
