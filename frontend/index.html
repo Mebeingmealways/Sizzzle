@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/iconlogo.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta name="theme-color" content="#F2734F" />
+    <meta name="description" content="Sizzzle - Connect with nearby home cooks for authentic meal experiences" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Yuji+Boku&family=Yuji+Syuku&display=swap" rel="stylesheet" />
+    <title>Sizzzle | Home Cooks. Real Taste.</title>
+  </head>
+  <body>
+    <div id="lang-toggle-wrap">
+      <button id="lang-toggle-btn" onclick="this.parentElement.classList.toggle('open')" aria-label="Change language">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Language
+      </button>
+      <div id="google_translate_element"></div>
+    </div>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+    <script>
+      window.__translateLoading = false;
+      window.__translateLoaded = false;
+
+      function googleTranslateElementInit() {
+        if (window.__translateLoaded) return;
+        window.__translateLoaded = true;
+        new google.translate.TranslateElement(
+          {
+            pageLanguage: 'en',
+            includedLanguages: 'en,hi,bn,ta,te,mr,gu,kn,ml,pa,or,as,ur,sd,ne,sa,ks,mai,doi,bho,kok',
+            layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+            autoDisplay: false,
+          },
+          'google_translate_element'
+        );
+      }
+
+      window.initGoogleTranslate = function initGoogleTranslate() {
+        if (window.__translateLoading || window.__translateLoaded) return;
+        window.__translateLoading = true;
+        const script = document.createElement('script');
+        script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        script.async = true;
+        script.onerror = function () {
+          window.__translateLoading = false;
+        };
+        script.onload = function () {
+          window.__translateLoading = false;
+        };
+        document.body.appendChild(script);
+      };
+    </script>
+  </body>
+</html>

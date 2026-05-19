@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="pan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3EB489"/>
+      <stop offset="100%" stop-color="#2F9E7A"/>
+    </linearGradient>
+    <linearGradient id="steam" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#FF8A5B" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FF8A5B" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="36" r="24" fill="url(#pan)" opacity="0.15"/>
+  <path d="M16 38 C16 28 20 22 32 22 C44 22 48 28 48 38 Z" fill="url(#pan)" rx="4"/>
+  <rect x="14" y="38" width="36" height="4" rx="2" fill="url(#pan)"/>
+  <path d="M24 18 Q24 12 26 8" stroke="url(#steam)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M32 16 Q32 10 34 6" stroke="url(#steam)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M40 18 Q40 12 42 8" stroke="url(#steam)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <text x="32" y="56" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="10" fill="#2F9E7A">SIZZZLE</text>
+</svg>

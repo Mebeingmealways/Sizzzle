@@ -1,0 +1,18 @@
+# Python cache and local virtual env
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# Local sqlite/runtime artifacts
+backend/sizzzle.db
+*.sqlite3
+
+# Frontend build/dependency artifacts
+frontend/node_modules/
+frontend/dist/
+
+# Test caches
+.pytest_cache/

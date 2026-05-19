@@ -1,0 +1,263 @@
+openapi: 3.0.3
+info:
+  title: Sizzzle API
+  version: 1.1.0
+  description: |
+    Backend API for Sizzzle with customer, cook, manager, and admin workflows.
+    This YAML is maintained as a sprint deliverable and maps endpoints to user stories.
+servers:
+  - url: /api
+    description: Local API base
+tags:
+  - name: Authentication
+    description: Registration, login, verification, password flows
+  - name: Bookings
+    description: Booking lifecycle APIs
+  - name: Cooks
+    description: Cook discovery and operations APIs
+  - name: Manager
+    description: Verification and complaint management APIs
+  - name: Admin
+    description: Governance and analytics APIs
+  - name: Profile
+    description: Profile and preference APIs
+  - name: Notifications
+    description: User notification APIs
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+    AuthTokenResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        user:
+          type: object
+      required:
+        - token
+        - user
+    RegisterCustomerRequest:
+      type: object
+      required:
+        - name
+        - email
+        - password
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+    CreateBookingRequest:
+      type: object
+      required:
+        - cook_id
+        - date
+      properties:
+        cook_id:
+          type: integer
+        date:
+          type: string
+          format: date
+        time_slot:
+          type: string
+        num_people:
+          type: integer
+        tier:
+          type: string
+          enum: [standard, premium]
+        dish_ids:
+          type: array
+          items:
+            type: integer
+        notes:
+          type: string
+paths:
+  /auth/register:
+    post:
+      tags: [Authentication]
+      summary: Register customer
+      description: Create a new customer account.
+      security: []
+      x-user-stories:
+        - "As a customer, I want to register so that I can book home cooks"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterCustomerRequest'
+      responses:
+        '201':
+          description: Customer created
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Email already registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /auth/login:
+    post:
+      tags: [Authentication]
+      summary: Login
+      description: Authenticate a user and return JWT token.
+      security: []
+      x-user-stories:
+        - "As a user, I want secure login so that I can access role-based dashboard"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthTokenResponse'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /bookings:
+    post:
+      tags: [Bookings]
+      summary: Create booking
+      description: Create a booking request for selected cook and dishes.
+      security:
+        - bearerAuth: []
+      x-user-stories:
+        - "As a customer, I want to book a cook so that I can schedule meal service"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBookingRequest'
+      responses:
+        '201':
+          description: Booking created
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      tags: [Bookings]
+      summary: List bookings
+      description: List bookings relevant to authenticated user role.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Booking list
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /cooks/recommended:
+    get:
+      tags: [Cooks]
+      summary: Recommended cooks
+      description: Return recommended cooks using availability/location profile data.
+      security:
+        - bearerAuth: []
+      x-user-stories:
+        - "As a customer, I want relevant cook recommendations so that I can choose quickly"
+      responses:
+        '200':
+          description: Recommendation list
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /manager/verification-queue:
+    get:
+      tags: [Manager]
+      summary: Verification queue
+      description: Retrieve pending cook verifications.
+      security:
+        - bearerAuth: []
+      x-user-stories:
+        - "As a manager, I want a verification queue so that I can approve or reject cook profiles"
+      responses:
+        '200':
+          description: Queue list
+        '403':
+          description: Forbidden (role mismatch)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /admin/stats:
+    get:
+      tags: [Admin]
+      summary: Platform stats
+      description: Fetch administrative platform metrics.
+      security:
+        - bearerAuth: []
+      x-user-stories:
+        - "As an admin, I want platform metrics so that I can track operational health"
+      responses:
+        '200':
+          description: Stats payload
+        '403':
+          description: Forbidden (role mismatch)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'

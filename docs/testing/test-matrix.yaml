@@ -1,0 +1,21 @@
+version: "1.0"
+project: "Sizzzle"
+strategy:
+  local_first: true
+  external_services_required: false
+suites:
+  - name: backend-api
+    runtime: python
+    path: docs/testing/backend
+    source_path: backend/tests
+    command: "python -m pytest tests -v"
+    coverage:
+      - auth
+      - profile
+      - bookings
+      - manager
+      - admin
+      - role-access
+acceptance:
+  backend:
+    pass_rate_target: 100
